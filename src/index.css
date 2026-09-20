@@ -58,9 +58,9 @@
 
   /* Reveal tiles */
   --reveal-cols: 12;
-  --reveal-rows: 8;
-  --reveal-stagger: 75ms;
-  --reveal-duration: 600ms;
+  --reveal-rows: 10;
+  --reveal-stagger: 65ms;
+  --reveal-duration: 575ms;
 }
 
 *,
