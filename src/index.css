@@ -59,8 +59,8 @@
   /* Reveal tiles */
   --reveal-cols: 12;
   --reveal-rows: 8;
-  --reveal-stagger: 22ms;
-  --reveal-duration: 650ms;
+  --reveal-stagger: 75ms;
+  --reveal-duration: 600ms;
 }
 
 *,
@@ -121,6 +121,7 @@ button {
   :root {
     --reveal-cols: 6;
     --reveal-rows: 10;
-    --reveal-stagger: 28ms;
+    --reveal-stagger: 65ms;
+    --reveal-duration: 520ms;
   }
 }

@@ -106,7 +106,7 @@ const HeroSection: React.FC = () => {
           </h1>
 
           <p className="hero__subtitle">
-            AI-powered satellite image enhancement
+            AI-powered satellite image enhancement{' '}
             <br className="hero__sub-break" />
             for sharper, more detailed Earth observation.
           </p>

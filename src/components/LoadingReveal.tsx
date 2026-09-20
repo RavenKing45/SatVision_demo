@@ -1,34 +1,78 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './LoadingReveal.css';
 
 interface LoadingRevealProps {
   onComplete?: () => void;
 }
 
+interface Tile {
+  col: number;
+  row: number;
+  delay: number;
+}
+
+const FALLBACK_COLS = 12;
+const FALLBACK_ROWS = 8;
+const FALLBACK_STAGGER = 75;
+const FALLBACK_DURATION = 600;
+const COMPLETION_BUFFER = 150;
+
 const LoadingReveal: React.FC<LoadingRevealProps> = ({ onComplete }) => {
+  const [tiles, setTiles] = useState<Tile[]>([]);
+  const [cols, setCols] = useState(FALLBACK_COLS);
+  const [rows, setRows] = useState(FALLBACK_ROWS);
+  const [stagger, setStagger] = useState(FALLBACK_STAGGER);
+  const [duration, setDuration] = useState(FALLBACK_DURATION);
   const [isDone, setIsDone] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
 
-  const { cols, rows, tiles } = useMemo(() => {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
-    const cols = isMobile ? 6 : 12;
-    const rows = isMobile ? 10 : 8;
-    const tileArray: { col: number; row: number; delay: number }[] = [];
+  useEffect(() => {
+    const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mql.matches) {
+      setReducedMotion(true);
+      setIsDone(true);
+      onComplete?.();
+      return;
+    }
 
-    for (let row = 0; row < rows; row++) {
-      for (let col = 0; col < cols; col++) {
-        const diag = (rows - 1 - row) + col;
-        const delay = diag * (isMobile ? 28 : 22);
+    const root = document.documentElement;
+    const cs = window.getComputedStyle(root);
+
+    const parseNum = (varName: string, fallback: number): number => {
+      const raw = cs.getPropertyValue(varName).trim();
+      if (!raw) return fallback;
+      const cleaned = raw.endsWith('ms') ? raw.slice(0, -2) : raw;
+      const parsed = parseInt(cleaned, 10);
+      return isNaN(parsed) ? fallback : parsed;
+    };
+
+    const resolvedCols = parseNum('--reveal-cols', FALLBACK_COLS);
+    const resolvedRows = parseNum('--reveal-rows', FALLBACK_ROWS);
+    const resolvedStagger = parseNum('--reveal-stagger', FALLBACK_STAGGER);
+    const resolvedDuration = parseNum('--reveal-duration', FALLBACK_DURATION);
+
+    setCols(resolvedCols);
+    setRows(resolvedRows);
+    setStagger(resolvedStagger);
+    setDuration(resolvedDuration);
+
+    const tileArray: Tile[] = [];
+    for (let row = 0; row < resolvedRows; row++) {
+      for (let col = 0; col < resolvedCols; col++) {
+        const diagonal = (resolvedRows - 1 - row) + col;
+        const delay = diagonal * resolvedStagger;
         tileArray.push({ col, row, delay });
       }
     }
-
-    return { cols, rows, tiles: tileArray };
-  }, []);
+    setTiles(tileArray);
+  }, [onComplete]);
 
   useEffect(() => {
-    const maxDiag = (rows - 1) + (cols - 1);
-    const stagger = typeof window !== 'undefined' && window.innerWidth <= 768 ? 28 : 22;
-    const totalMs = maxDiag * stagger + 650 + 100;
+    if (reducedMotion || isDone) return;
+    if (tiles.length === 0) return;
+
+    const maxDiagonal = (rows - 1) + (cols - 1);
+    const totalMs = maxDiagonal * stagger + duration + COMPLETION_BUFFER;
 
     const timer = window.setTimeout(() => {
       setIsDone(true);
@@ -36,7 +80,7 @@ const LoadingReveal: React.FC<LoadingRevealProps> = ({ onComplete }) => {
     }, totalMs);
 
     return () => window.clearTimeout(timer);
-  }, [cols, rows, onComplete]);
+  }, [cols, rows, stagger, duration, onComplete, tiles.length, reducedMotion, isDone]);
 
   if (isDone) return null;
 
@@ -46,17 +90,19 @@ const LoadingReveal: React.FC<LoadingRevealProps> = ({ onComplete }) => {
       style={{
         gridTemplateColumns: `repeat(${cols}, 1fr)`,
         gridTemplateRows: `repeat(${rows}, 1fr)`,
+        ['--reveal-duration' as string]: `${duration}ms`,
       }}
       aria-hidden="true"
     >
       {tiles.map(({ col, row, delay }) => (
-        <span
-          key={`${col}-${row}`}
-          className="reveal-tile"
-          style={{
-            ['--reveal-delay' as string]: `${delay}ms`,
-          }}
-        />
+        <div key={`${row}-${col}`} className="reveal-cell">
+          <div
+            className="reveal-mask"
+            style={{
+              ['--reveal-delay' as string]: `${delay}ms`,
+            }}
+          />
+        </div>
       ))}
     </div>
   );
