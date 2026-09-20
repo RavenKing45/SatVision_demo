@@ -72,7 +72,7 @@
 }
 
 .ic__img--overlay {
-  filter: saturate(0.96) contrast(1.08) brightness(0.96) sharpen(1.1);
+  filter: saturate(0.96) contrast(1.08) brightness(0.96);
 }
 
 .ic__corner {

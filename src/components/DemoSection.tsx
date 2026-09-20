@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import ImageComparison from './ImageComparison';
-import satelliteHero from '../assets/satellite-hero.png';
+import sentinel2_10m from '../assets/demo/sentinel2_10m.png';
+import superres_2_5m from '../assets/demo/superres_2_5m.png';
 import './DemoSection.css';
 
-const LOW_RES_IMAGE = satelliteHero;
-const HIGH_RES_IMAGE = satelliteHero;
+const LOW_RES_IMAGE = sentinel2_10m;
+const HIGH_RES_IMAGE = superres_2_5m;
 
 const DemoSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -75,14 +76,18 @@ const DemoSection: React.FC = () => {
             initialPosition={0.5}
             lowResLabel={{
               primary: '10 m',
-              secondary: 'MEDIUM RESOLUTION',
+              secondary: 'SENTINEL-2 INPUT',
             }}
             highResLabel={{
-              primary: '<4 m',
+              primary: '2.5 m',
               secondary: 'SUPER-RESOLVED',
             }}
-            ariaLabel="Compare 10 meter medium-resolution and super-resolved satellite imagery. Drag the divider, or use arrow keys, to adjust the comparison."
+            ariaLabel="Compare 10 meter Sentinel-2 input and 2.5 meter super-resolved satellite imagery. Drag the divider, or use arrow keys, to adjust the comparison."
           />
+
+          <p className="demo__provenance">
+            Reference super-resolution output — Sat Vision model output will replace this during integration.
+          </p>
         </div>
 
         <footer className="demo__meta">
@@ -98,13 +103,9 @@ const DemoSection: React.FC = () => {
             </div>
             <div className="demo__meta-col demo__meta-col--target">
               <div className="demo__meta-label">TARGET</div>
-              <div className="demo__meta-value">{'<4 m'} spatial detail</div>
+              <div className="demo__meta-value">2.5 m spatial detail</div>
             </div>
           </div>
-
-          <p className="demo__disclaimer">
-            Illustrative comparison — replace with validated model output.
-          </p>
         </footer>
       </div>
     </section>
