@@ -1,67 +1,81 @@
 import { useEffect, useRef } from 'react';
+import satelliteHero from '../assets/satellite-hero.png';
 import './HeroSection.css';
 
-export const HERO_IMAGE =
-  'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=high%20resolution%20satellite%20aerial%20view%20of%20agricultural%20crop%20fields%20with%20geometric%20patterns%20dry%20desert%20terrain%20patchwork%20farmland%20geometric%20land%20parcels%20earth%20observation%20from%20orbit%20photorealistic%20no%20clouds&image_size=landscape_16_9';
+export const HERO_IMAGE = satelliteHero;
+
+const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 
 const HeroSection: React.FC = () => {
+  const heroRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let raf = 0;
 
-    const onScroll = () => {
-      const y = window.scrollY;
-      if (bgRef.current) {
-        const parallax = Math.min(y * 0.18, 200);
-        bgRef.current.style.transform = `translate3d(0, ${parallax}px, 0) scale(1.08)`;
-      }
-      if (contentRef.current) {
-        const shift = Math.min(y * 0.35, 300);
-        const fade = Math.max(1 - y / 600, 0);
-        contentRef.current.style.transform = `translate3d(0, ${shift * 0.3}px, 0)`;
-        contentRef.current.style.opacity = String(fade);
-      }
-    };
-
     const tick = () => {
-      onScroll();
       raf = 0;
+      const hero = heroRef.current;
+      const bg = bgRef.current;
+      const content = contentRef.current;
+      if (!hero || !bg || !content) return;
+
+      const vh = window.innerHeight;
+      const rect = hero.getBoundingClientRect();
+      const total = Math.max(rect.height, vh);
+      const progressed = clamp01((-rect.top) / (total * 0.9));
+
+      const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+
+      const scaleStart = isMobile ? 1.05 : 1.08;
+      const scaleEnd = isMobile ? 1.10 : 1.15;
+      const scale = scaleStart + (scaleEnd - scaleStart) * progressed;
+
+      const maxYBg = isMobile ? -40 : -90;
+      const maxXBg = isMobile ? 4 : 16;
+      const yBg = progressed * maxYBg;
+      const xBg = progressed * maxXBg;
+
+      bg.style.transform = `translate3d(${xBg}px, ${yBg}px, 0) scale(${scale.toFixed(4)})`;
+
+      const maxYContent = isMobile ? 80 : 150;
+      const yContent = progressed * maxYContent;
+      const fade = clamp01(1 - (progressed - 0.25) / 0.65);
+
+      content.style.transform = `translate3d(0, ${yContent}px, 0)`;
+      content.style.opacity = String(fade);
     };
 
     const listener = () => {
       if (!raf) raf = window.requestAnimationFrame(tick);
     };
 
+    tick();
     window.addEventListener('scroll', listener, { passive: true });
+    window.addEventListener('resize', listener, { passive: true });
     return () => {
       window.removeEventListener('scroll', listener);
+      window.removeEventListener('resize', listener);
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);
 
   return (
-    <section className="hero" id="hero" aria-label="Hero">
+    <section ref={heroRef} className="hero" id="hero" aria-label="Hero">
       <div className="hero__bg-wrap">
         <div ref={bgRef} className="hero__bg">
           <img
             src={HERO_IMAGE}
-            alt="Satellite view of agricultural terrain"
+            alt="Satellite view of terrain"
             className="hero__bg-img"
-            onError={(e) => {
-              const target = e.currentTarget as HTMLImageElement;
-              target.src =
-                'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=2400&q=80';
-            }}
+            draggable={false}
           />
         </div>
         <div className="hero__overlay" />
         <div className="hero__vignette" />
         <div className="hero__grain" aria-hidden="true" />
       </div>
-
-      <div className="hero__scanline" aria-hidden="true" />
 
       <div className="hero__content" ref={contentRef}>
         <div className="hero__content-inner">
@@ -122,38 +136,10 @@ const HeroSection: React.FC = () => {
             </a>
           </div>
         </div>
-
-        <aside className="hero__side-meta" aria-hidden="true">
-          <div className="hero__coord">
-            <span className="hero__coord-label">LAT</span>
-            <span className="hero__coord-value">28.6139° N</span>
-          </div>
-          <div className="hero__coord">
-            <span className="hero__coord-label">LON</span>
-            <span className="hero__coord-value">77.2090° E</span>
-          </div>
-          <div className="hero__coord-divider" />
-          <div className="hero__coord">
-            <span className="hero__coord-label">ZOOM</span>
-            <span className="hero__coord-value">12.4x</span>
-          </div>
-          <div className="hero__coord">
-            <span className="hero__coord-label">RES</span>
-            <span className="hero__coord-value">
-              0.31<span className="hero__coord-unit">m/px</span>
-            </span>
-          </div>
-        </aside>
       </div>
 
       <div className="hero__bottom-bar" aria-hidden="true">
-        <div className="hero__bottom-left">
-          <div className="hero__progress">
-            <div className="hero__progress-fill" />
-          </div>
-          <span className="hero__progress-label">ORBIT&nbsp;·&nbsp;PASS 047 / 365</span>
-        </div>
-        <div className="hero__scroll-cue">
+        <div className="hero__scroll-cue hero__scroll-cue--right">
           <span className="hero__scroll-label">Scroll</span>
           <span className="hero__scroll-line" />
         </div>
