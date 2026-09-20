@@ -1,0 +1,648 @@
+/* ═══════════════════════════════════════════════════════════
+   IMPACT SECTION  —  .impact
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Section shell ──────────────────────────────────────────── */
+.impact {
+  position: relative;
+  width: 100%;
+  background: var(--color-bg);
+  padding: clamp(var(--space-8), 10vw, 8rem) 0 clamp(var(--space-9), 12vw, 10rem);
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* ── Decorative top edge ────────────────────────────────────── */
+.impact__edge {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(91,184,201,0.28) 50%, transparent 100%);
+  z-index: 1;
+}
+
+/* ── Background contour ─────────────────────────────────────── */
+.impact__contour {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.22;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1200' preserveAspectRatio='none'><g fill='none' stroke='%235bb8c9' stroke-width='0.6' stroke-opacity='0.12'><path d='M-40 300 C 300 260, 700 380, 1000 320 S 1400 220, 1680 280'/><path d='M-40 600 C 280 560, 620 680, 920 620 S 1380 520, 1680 580'/><path d='M-40 900 C 320 860, 660 980, 960 920 S 1360 820, 1680 880'/></g></svg>");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  mix-blend-mode: screen;
+}
+
+/* ── Subtle grid ────────────────────────────────────────────── */
+.impact__grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.14;
+  background-image:
+    linear-gradient(to right,  rgba(243,243,240,0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(243,243,240,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, rgba(0,0,0,0.85) 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, rgba(0,0,0,0.85) 0%, transparent 100%);
+}
+
+/* ── Inner layout ───────────────────────────────────────────── */
+.impact__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--container-pad-x);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--space-7), 8vw, 5.5rem);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════════ */
+.impact__header {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(var(--space-4), 2.5vw, var(--space-6));
+  max-width: 52rem;
+}
+
+.impact__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: fit-content;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 700ms var(--ease-out-expo), transform 700ms var(--ease-out-expo);
+}
+
+.impact.is-visible .impact__eyebrow {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 40ms;
+}
+
+.impact__eyebrow-line {
+  display: block;
+  width: clamp(42px, 6vw, 92px);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(42,107,120,0.9), rgba(91,184,201,0.65));
+}
+
+.impact__eyebrow-text {
+  font-family: var(--font-display);
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.impact__title {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: clamp(2.6rem, 6vw, 5.6rem);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.022em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.06em;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 800ms var(--ease-out-expo), transform 800ms var(--ease-out-expo);
+}
+
+.impact.is-visible .impact__title {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 120ms;
+}
+
+.impact__title-line {
+  display: block;
+  color: var(--color-text);
+}
+
+.impact__title-line--accent {
+  color: var(--color-accent);
+}
+
+.impact__intro {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  line-height: 1.65;
+  color: rgba(243,243,240,0.65);
+  font-weight: var(--fw-light);
+  max-width: 38rem;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 700ms var(--ease-out-expo), transform 700ms var(--ease-out-expo);
+}
+
+.impact.is-visible .impact__intro {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 200ms;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BODY  —  circle + panel side by side
+   ═══════════════════════════════════════════════════════════ */
+.impact__body {
+  display: grid;
+  grid-template-columns: minmax(0, 540px) 1fr;
+  align-items: center;
+  gap: clamp(var(--space-7), 6vw, 5rem);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 900ms var(--ease-out-expo), transform 900ms var(--ease-out-expo);
+}
+
+.impact.is-visible .impact__body {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 280ms;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SVG WHEEL
+   ═══════════════════════════════════════════════════════════ */
+.impact__viz-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+
+.impact__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ── Arc group — interactive container ──────────────────────── */
+.impact__arc-group {
+  cursor: pointer;
+  transition: transform 240ms var(--ease-out-quart);
+  outline: none;
+}
+
+.impact__arc-group:focus-visible .impact__arc-stroke {
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  stroke-opacity: 0.9;
+}
+
+/* ── Arc fill ───────────────────────────────────────────────── */
+.impact__arc-fill {
+  fill: rgba(243,243,240,0.02);
+  transition: fill 220ms var(--ease-out-quart);
+}
+
+.impact__arc-group:hover .impact__arc-fill,
+.impact__arc-group.is-active .impact__arc-fill {
+  fill: rgba(91,184,201,0.045);
+}
+
+/* ── Arc stroke border ──────────────────────────────────────── */
+.impact__arc-stroke {
+  fill: none;
+  stroke: rgba(243,243,240,0.1);
+  stroke-width: 0.8;
+  transition:
+    stroke         220ms var(--ease-out-quart),
+    stroke-width   220ms var(--ease-out-quart),
+    stroke-opacity 220ms var(--ease-out-quart);
+}
+
+.impact__arc-group:hover .impact__arc-stroke {
+  stroke: rgba(91,184,201,0.55);
+  stroke-width: 1;
+}
+
+.impact__arc-group.is-active .impact__arc-stroke {
+  stroke: rgba(91,184,201,0.75);
+  stroke-width: 1.2;
+}
+
+/* ── Arc number ─────────────────────────────────────────────── */
+.impact__arc-num {
+  font-family: var(--font-display);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  fill: rgba(243,243,240,0.2);
+  pointer-events: none;
+  transition: fill 220ms var(--ease-out-quart);
+}
+
+.impact__arc-group.is-active .impact__arc-num {
+  fill: rgba(91,184,201,0.8);
+}
+
+.impact__arc-group:hover .impact__arc-num {
+  fill: rgba(91,184,201,0.65);
+}
+
+/* ── Arc label ──────────────────────────────────────────────── */
+.impact__arc-label {
+  font-family: var(--font-display);
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  fill: rgba(243,243,240,0.3);
+  pointer-events: none;
+  transition: fill 220ms var(--ease-out-quart);
+}
+
+.impact__arc-group.is-active .impact__arc-label {
+  fill: rgba(243,243,240,0.88);
+}
+
+.impact__arc-group:hover .impact__arc-label {
+  fill: rgba(243,243,240,0.7);
+}
+
+/* ── Separator lines ────────────────────────────────────────── */
+.impact__arc-sep {
+  stroke: rgba(5,5,5,1);
+  stroke-width: 3;
+}
+
+/* ── Inner ring ─────────────────────────────────────────────── */
+.impact__inner-ring {
+  stroke: rgba(91,184,201,0.12);
+  stroke-width: 0.8;
+}
+
+/* ── Active tick ────────────────────────────────────────────── */
+.impact__active-tick {
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  transition: all 240ms var(--ease-out-quart);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CENTER CIRCLE  —  satellite image
+   ═══════════════════════════════════════════════════════════ */
+.impact__center {
+  position: absolute;
+  /* position relative to the SVG viewBox (520×520) — convert to % */
+  /* center = 260,260 | INNER_R = 146  → diameter = 292px out of 520 = 56.15% */
+  left: 50%;
+  top: 50%;
+  width: 56%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.impact__center-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.72) contrast(1.1) saturate(0.75);
+  transition: filter 280ms var(--ease-out-quart);
+}
+
+.impact__center-vignette {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%,
+      transparent 35%,
+      rgba(5,5,5,0.55) 75%,
+      rgba(5,5,5,0.85) 100%);
+}
+
+.impact__center-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.impact__center-brand {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(0.52rem, 1vw, 0.72rem);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(91,184,201,0.7);
+}
+
+.impact__center-sub {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(0.68rem, 1.3vw, 0.88rem);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  color: rgba(243,243,240,0.78);
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INFO PANEL
+   ═══════════════════════════════════════════════════════════ */
+.impact__panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.impact__panel-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  animation: panelFadeIn 280ms var(--ease-out-quart) forwards;
+}
+
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.impact__panel-eyebrow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+}
+
+.impact__panel-num {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgba(91,184,201,0.4);
+}
+
+.impact__panel-sep {
+  font-family: var(--font-display);
+  font-size: var(--fs-meta);
+  color: var(--color-text-dim);
+}
+
+.impact__panel-cat {
+  font-family: var(--font-display);
+  font-size: var(--fs-meta);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.impact__panel-subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  color: rgba(243,243,240,0.9);
+  text-transform: uppercase;
+  border-left: 2px solid rgba(91,184,201,0.35);
+  padding-left: var(--space-4);
+}
+
+.impact__panel-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.impact__panel-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-family: var(--font-body);
+  font-size: clamp(0.82rem, 1.05vw, 0.92rem);
+  line-height: 1.55;
+  color: rgba(243,243,240,0.62);
+  font-weight: var(--fw-light);
+}
+
+.impact__panel-dash {
+  flex-shrink: 0;
+  color: rgba(91,184,201,0.45);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  margin-top: 0.05em;
+}
+
+/* ── Dot navigation ─────────────────────────────────────────── */
+.impact__dots {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+}
+
+.impact__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid rgba(243,243,240,0.22);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background     200ms var(--ease-out-quart),
+    border-color   200ms var(--ease-out-quart),
+    transform      200ms var(--ease-out-quart);
+  padding: 0;
+}
+
+.impact__dot:hover {
+  border-color: rgba(91,184,201,0.55);
+  transform: scale(1.3);
+}
+
+.impact__dot.is-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CLOSING VALUE STRIP
+   ═══════════════════════════════════════════════════════════ */
+.impact__values {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(var(--space-4), 3vw, var(--space-6));
+  flex-wrap: wrap;
+  text-align: center;
+  padding: clamp(var(--space-4), 3vw, var(--space-6)) 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 700ms var(--ease-out-expo), transform 700ms var(--ease-out-expo);
+}
+
+.impact.is-visible .impact__values {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 400ms;
+}
+
+.impact__values-rule {
+  flex: 1;
+  min-width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(91,184,201,0.18) 60%, transparent);
+}
+
+.impact__value {
+  font-family: var(--font-display);
+  font-size: clamp(0.68rem, 1.1vw, 0.85rem);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(243,243,240,0.42);
+  white-space: nowrap;
+  transition: color 200ms;
+}
+
+.impact__value:hover {
+  color: rgba(243,243,240,0.72);
+}
+
+.impact__value-dot {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: rgba(91,184,201,0.3);
+  line-height: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FINAL CTA
+   ═══════════════════════════════════════════════════════════ */
+.impact__cta-wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-2);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 700ms var(--ease-out-expo), transform 700ms var(--ease-out-expo);
+}
+
+.impact.is-visible .impact__cta-wrap {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 480ms;
+}
+
+.impact__cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 1.1rem 2.1rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  background: var(--color-text);
+  color: var(--color-bg);
+  text-decoration: none;
+  transition:
+    background 220ms var(--ease-out-quart),
+    color      220ms var(--ease-out-quart),
+    gap        220ms var(--ease-out-quart);
+}
+
+.impact__cta-btn:hover {
+  gap: var(--space-4);
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.impact__cta-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 960px) {
+  .impact__body {
+    grid-template-columns: 1fr;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .impact__panel {
+    padding: 0 var(--space-2);
+  }
+}
+
+@media (max-width: 640px) {
+  .impact__values {
+    gap: var(--space-3);
+  }
+
+  .impact__values-rule {
+    min-width: 24px;
+  }
+
+  .impact__value {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .impact__eyebrow,
+  .impact__title,
+  .impact__intro,
+  .impact__body,
+  .impact__values,
+  .impact__cta-wrap {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .impact__arc-group,
+  .impact__arc-fill,
+  .impact__arc-stroke,
+  .impact__arc-num,
+  .impact__arc-label,
+  .impact__active-tick,
+  .impact__dot {
+    transition: none;
+  }
+
+  @keyframes panelFadeIn {
+    from { opacity: 1; transform: none; }
+    to   { opacity: 1; transform: none; }
+  }
+}
