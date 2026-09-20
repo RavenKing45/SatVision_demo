@@ -32,6 +32,8 @@ const IntroSection: React.FC = () => {
       aria-label="Introduction"
     >
       <div className="intro__edge" aria-hidden="true" />
+      <div className="intro__contour" aria-hidden="true" />
+      <div className="intro__grid-lines" aria-hidden="true" />
 
       <div className="intro__inner">
         <div className="intro__eyebrow">
@@ -58,28 +60,27 @@ const IntroSection: React.FC = () => {
 
           <div className={`intro__body ${isVisible ? 'is-visible' : ''}`}>
             <p className="intro__lede">
-              Medium-resolution satellite data is everywhere — but the detail
-              it holds remains locked behind sensor limits. SAT VISION uses
-              deep learning to reconstruct what the sensor cannot fully see,
-              revealing terrain, structures, and patterns at a higher fidelity.
+              Medium-resolution satellite imagery is widely available, but useful spatial detail remains constrained by sensor resolution. Sat Vision uses deep learning to reconstruct finer spatial detail while preserving the information that makes satellite imagery useful.
             </p>
             <p className="intro__sub">
-              Built for urban planning, agricultural monitoring, disaster
-              response, and precision Earth observation.
+              Built for urban planning, agricultural monitoring, disaster response, and precision Earth observation.
             </p>
 
-            <div className="intro__markers">
-              <div className="intro__marker">
-                <span className="intro__marker-label">Capability</span>
-                <span className="intro__marker-value">Super-Resolution</span>
+            <div className="intro__divider" aria-hidden="true" />
+
+            <div className="intro__res-band">
+              <div className="intro__res-col">
+                <div className="intro__res-primary">10 m INPUT</div>
+                <div className="intro__res-secondary">MULTISPECTRAL</div>
               </div>
-              <div className="intro__marker">
-                <span className="intro__marker-label">Domain</span>
-                <span className="intro__marker-value">Geospatial AI</span>
+              <div className="intro__res-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
               </div>
-              <div className="intro__marker">
-                <span className="intro__marker-label">Initiative</span>
-                <span className="intro__marker-value">SIH 2026</span>
+              <div className="intro__res-col intro__res-col--target">
+                <div className="intro__res-primary">&lt;4 m TARGET</div>
+                <div className="intro__res-secondary">SUPER-RESOLVED</div>
               </div>
             </div>
           </div>

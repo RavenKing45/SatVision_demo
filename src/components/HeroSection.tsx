@@ -95,7 +95,7 @@ const HeroSection: React.FC = () => {
                 <span className="hero__title-inner">SEE MORE.</span>
               </span>
             </span>
-            <span className="hero__title-line hero__title-line--shifted">
+            <span className="hero__title-line">
               <span className="hero__title-word">
                 <span className="hero__title-inner">FROM EVERY</span>
                 <span className="hero__title-inner hero__title-inner--accent">
@@ -125,14 +125,6 @@ const HeroSection: React.FC = () => {
               >
                 <path d="M12 5v14M5 12l7 7 7-7" />
               </svg>
-            </a>
-            <a href="#technology" className="hero__btn hero__btn--ghost">
-              <span className="hero__btn-play">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </span>
-              <span className="hero__btn-label">Watch Demo</span>
             </a>
           </div>
         </div>

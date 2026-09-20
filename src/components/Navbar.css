@@ -52,7 +52,7 @@
   font-weight: var(--fw-semibold);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   color: var(--color-text);
   opacity: 0;
   transform: translateY(-6px);
@@ -84,8 +84,7 @@
 
 .navbar__link {
   display: inline-flex;
-  align-items: baseline;
-  gap: var(--space-2);
+  align-items: center;
   font-size: var(--fs-nav);
   font-family: var(--font-body);
   font-weight: var(--fw-medium);
@@ -98,22 +97,9 @@
   animation-delay: calc(900ms + var(--nav-delay, 0ms));
 }
 
-.navbar__link-num {
-  font-family: var(--font-display);
-  font-size: 0.62rem;
-  font-weight: var(--fw-medium);
-  letter-spacing: 0.08em;
-  color: var(--color-text-dim);
-  transition: color var(--duration-fast) var(--ease-out-quart);
-}
-
 .navbar__link:hover,
 .navbar__link:focus-visible {
   color: var(--color-text);
-}
-
-.navbar__link:hover .navbar__link-num {
-  color: var(--color-accent);
 }
 
 .navbar__cta {
@@ -124,7 +110,7 @@
   border: 1px solid rgba(243, 243, 240, 0.22);
   border-radius: 999px;
   font-family: var(--font-display);
-  font-size: 0.74rem;
+  font-size: 0.82rem;
   font-weight: var(--fw-medium);
   letter-spacing: 0.08em;
   text-transform: uppercase;
