@@ -40,6 +40,7 @@ const Navbar: React.FC = () => {
               className="navbar__link"
               style={{ ['--nav-delay' as string]: `${(i + 1) * 40}ms` }}
             >
+              <span className="navbar__link-num">0{i + 1}</span>
               <span className="navbar__link-label">{link.label}</span>
             </a>
           ))}
