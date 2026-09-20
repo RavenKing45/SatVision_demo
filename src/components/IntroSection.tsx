@@ -86,6 +86,23 @@ const IntroSection: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <div className="intro__cta-row">
+        <a href="#demo" className="intro__cta-btn">
+          <span className="intro__cta-label">Explore the Demo</span>
+          <svg
+            className="intro__cta-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
+        </a>
+      </div>
     </section>
   );
 };

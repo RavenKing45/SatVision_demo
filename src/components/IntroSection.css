@@ -290,3 +290,44 @@
     width: 160px;
   }
 }
+
+/* ─── CTA: Intro → Demo ──────────────────────────────────── */
+.intro__cta-row {
+  display: flex;
+  justify-content: center;
+  padding-top: clamp(var(--space-4), 3vw, var(--space-7));
+  padding-bottom: var(--space-2);
+}
+
+.intro__cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 1.1rem 2.1rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  background: var(--color-text);
+  color: var(--color-bg);
+  text-decoration: none;
+  transition:
+    transform 220ms var(--ease-out-quart),
+    background 220ms var(--ease-out-quart),
+    color 220ms var(--ease-out-quart),
+    gap 220ms var(--ease-out-quart);
+}
+
+.intro__cta-btn:hover {
+  gap: var(--space-4);
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.intro__cta-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}

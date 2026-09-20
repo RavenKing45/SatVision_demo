@@ -79,10 +79,10 @@ const DemoSection: React.FC = () => {
               secondary: 'SENTINEL-2 INPUT',
             }}
             highResLabel={{
-              primary: '2.5 m',
+              primary: '<4 m',
               secondary: 'SUPER-RESOLVED',
             }}
-            ariaLabel="Compare 10 meter Sentinel-2 input and 2.5 meter super-resolved satellite imagery. Drag the divider, or use arrow keys, to adjust the comparison."
+            ariaLabel="Compare 10 meter Sentinel-2 input and sub-4 meter super-resolved satellite imagery. Drag the divider, or use arrow keys, to adjust the comparison."
           />
 
           <p className="demo__provenance">
@@ -103,10 +103,27 @@ const DemoSection: React.FC = () => {
             </div>
             <div className="demo__meta-col demo__meta-col--target">
               <div className="demo__meta-label">TARGET</div>
-              <div className="demo__meta-value">2.5 m spatial detail</div>
+              <div className="demo__meta-value">&lt;4 m spatial detail</div>
             </div>
           </div>
         </footer>
+
+        <div className="demo__nav-cta">
+          <a href="#technology" className="demo__nav-btn">
+            <span className="demo__nav-label">Explore the Technology</span>
+            <svg
+              className="demo__nav-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M12 5v14M5 12l7 7 7-7" />
+            </svg>
+          </a>
+        </div>
       </div>
     </section>
   );
