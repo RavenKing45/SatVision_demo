@@ -79,19 +79,20 @@
   z-index: 2;
   width: 100%;
   padding: 0 var(--container-pad-x);
-  padding-bottom: clamp(var(--space-8), 12vw, var(--space-10));
-  padding-top: calc(var(--nav-height) + var(--space-7));
+  padding-bottom: clamp(var(--space-7), 9vw, var(--space-9));
+  padding-top: calc(var(--nav-height) + var(--space-6));
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   align-items: end;
   will-change: transform, opacity;
+  min-height: 100svh;
 }
 
 .hero__content-inner {
   max-width: 58rem;
   display: flex;
   flex-direction: column;
-  gap: clamp(var(--space-5), 2.5vw, var(--space-7));
+  gap: clamp(var(--space-4), 2vw, var(--space-6));
 }
 
 .hero__meta-row {
@@ -145,12 +146,12 @@
   font-family: var(--font-display);
   font-weight: var(--fw-bold);
   font-size: var(--fs-h1);
-  line-height: var(--lh-tight);
+  line-height: 0.92;
   letter-spacing: -0.025em;
   color: var(--color-text);
   display: flex;
   flex-direction: column;
-  gap: clamp(0.1rem, 0.6vw, 0.5rem);
+  gap: clamp(0.05rem, 0.45vw, 0.35rem);
 }
 
 .hero__title-line {
@@ -197,9 +198,9 @@
   font-family: var(--font-body);
   font-size: clamp(var(--fs-body), 1.3vw, var(--fs-body-lg));
   line-height: var(--lh-normal);
-  font-weight: var(--fw-light);
-  color: var(--color-text-muted);
-  max-width: 32rem;
+  font-weight: var(--fw-regular);
+  color: rgba(243, 243, 240, 0.88);
+  max-width: 34rem;
   opacity: 0;
   transform: translateY(14px);
   animation: hero-in 700ms var(--ease-out-expo) 1550ms forwards;
@@ -214,7 +215,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-4);
-  margin-top: var(--space-2);
+  margin-top: var(--space-1);
   opacity: 0;
   transform: translateY(14px);
   animation: hero-in 700ms var(--ease-out-expo) 1700ms forwards;
