@@ -142,13 +142,13 @@ const ImpactSection: React.FC = () => {
   const activeIdx  = CATEGORIES.findIndex((c) => c.id === active);
 
   /* SVG canvas */
-  const SIZE    = 520;
+  const SIZE    = 580;              // viewBox grows to give outer arcs more space
   const CX      = SIZE / 2;
   const CY      = SIZE / 2;
-  const OUTER_R = 228;
-  const INNER_R = 146;
-  const LABEL_R = OUTER_R - 36;   // label text sits inside outer arc
-  const NUM_R   = INNER_R + 18;   // number near inner edge
+  const OUTER_R = 262;              // ~15% larger outer ring
+  const INNER_R = 146;              // unchanged — keeps center image the same size
+  const LABEL_R = OUTER_R - 40;    // centered in the wider arc band
+  const NUM_R   = INNER_R + 22;    // slightly further from inner edge
 
   return (
     <section

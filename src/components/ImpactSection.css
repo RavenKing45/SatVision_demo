@@ -156,7 +156,7 @@
    ═══════════════════════════════════════════════════════════ */
 .impact__body {
   display: grid;
-  grid-template-columns: minmax(0, 540px) 1fr;
+  grid-template-columns: minmax(0, 580px) 1fr;
   align-items: center;
   gap: clamp(var(--space-7), 6vw, 5rem);
   opacity: 0;
@@ -176,9 +176,9 @@
 .impact__viz-wrap {
   position: relative;
   width: 100%;
-  max-width: 520px;
+  max-width: 580px;
   aspect-ratio: 1;
-  margin: 0 auto;
+  margin: -40px auto 0;
 }
 
 .impact__svg {
@@ -236,7 +236,7 @@
 /* ── Arc number ─────────────────────────────────────────────── */
 .impact__arc-num {
   font-family: var(--font-display);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.05em;
   fill: rgba(243,243,240,0.2);
@@ -255,9 +255,9 @@
 /* ── Arc label ──────────────────────────────────────────────── */
 .impact__arc-label {
   font-family: var(--font-display);
-  font-size: 8.5px;
+  font-size: 10.5px;
   font-weight: 500;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   fill: rgba(243,243,240,0.3);
   pointer-events: none;
@@ -297,11 +297,10 @@
    ═══════════════════════════════════════════════════════════ */
 .impact__center {
   position: absolute;
-  /* position relative to the SVG viewBox (520×520) — convert to % */
-  /* center = 260,260 | INNER_R = 146  → diameter = 292px out of 520 = 56.15% */
+  /* SIZE=580, INNER_R=146 → diameter=292, 292/580 = 50.34% */
   left: 50%;
   top: 50%;
-  width: 56%;
+  width: 50.34%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
   border-radius: 50%;
@@ -371,6 +370,7 @@
 .impact__panel {
   display: flex;
   flex-direction: column;
+  margin-top: -50px;
 }
 
 .impact__panel-inner {
@@ -393,7 +393,7 @@
 
 .impact__panel-num {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-size: clamp(2.8rem, 5vw, 4.4rem);
   font-weight: var(--fw-bold);
   line-height: 1;
   letter-spacing: -0.04em;
@@ -402,13 +402,13 @@
 
 .impact__panel-sep {
   font-family: var(--font-display);
-  font-size: var(--fs-meta);
+  font-size: 0.82rem;
   color: var(--color-text-dim);
 }
 
 .impact__panel-cat {
   font-family: var(--font-display);
-  font-size: var(--fs-meta);
+  font-size: 0.82rem;
   font-weight: var(--fw-medium);
   letter-spacing: 0.28em;
   text-transform: uppercase;
@@ -417,7 +417,7 @@
 
 .impact__panel-subtitle {
   font-family: var(--font-display);
-  font-size: clamp(0.85rem, 1.3vw, 1.05rem);
+  font-size: clamp(0.95rem, 1.45vw, 1.18rem);
   font-weight: var(--fw-semibold);
   letter-spacing: 0.06em;
   line-height: 1.4;
@@ -439,7 +439,7 @@
   align-items: flex-start;
   gap: var(--space-3);
   font-family: var(--font-body);
-  font-size: clamp(0.82rem, 1.05vw, 0.92rem);
+  font-size: clamp(0.9rem, 1.15vw, 1.02rem);
   line-height: 1.55;
   color: rgba(243,243,240,0.62);
   font-weight: var(--fw-light);
@@ -592,11 +592,17 @@
 @media (max-width: 960px) {
   .impact__body {
     grid-template-columns: 1fr;
-    max-width: 540px;
+    max-width: 580px;
     margin: 0 auto;
   }
 
+  /* Cancel desktop-only upward shifts when stacked */
+  .impact__viz-wrap {
+    margin-top: 0;
+  }
+
   .impact__panel {
+    margin-top: 0;
     padding: 0 var(--space-2);
   }
 }
