@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import IntroSection from './components/IntroSection';
 import DemoSection from './components/DemoSection';
+import TechnologySection from './components/TechnologySection';
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
         <HeroSection />
         <IntroSection />
         <DemoSection />
+        <TechnologySection />
       </main>
     </>
   );
