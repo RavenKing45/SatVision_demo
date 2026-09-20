@@ -13,13 +13,13 @@
   --font-display: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
-  --fs-meta: 0.72rem;
-  --fs-caption: 0.85rem;
-  --fs-body: 0.95rem;
-  --fs-body-lg: 1.1rem;
-  --fs-h1: clamp(3.2rem, 9vw, 8rem);
-  --fs-h2: clamp(2.4rem, 6.5vw, 5.5rem);
-  --fs-nav: 0.92rem;
+  --fs-meta: 0.65rem;
+  --fs-caption: 0.78rem;
+  --fs-body: 0.88rem;
+  --fs-body-lg: 1rem;
+  --fs-h1: clamp(2.6rem, 7vw, 6rem);
+  --fs-h2: clamp(2rem, 5vw, 4.2rem);
+  --fs-nav: 0.82rem;
 
   --fw-light: 300;
   --fw-regular: 400;
@@ -37,15 +37,15 @@
   --space-3: 0.75rem;
   --space-4: 1rem;
   --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-7: 3rem;
-  --space-8: 4rem;
-  --space-9: 6rem;
-  --space-10: 8rem;
+  --space-6: 1.75rem;
+  --space-7: 2.5rem;
+  --space-8: 3.25rem;
+  --space-9: 4.5rem;
+  --space-10: 6rem;
 
   /* Layout */
   --container-pad-x: clamp(1.25rem, 4vw, 4rem);
-  --nav-height: 80px;
+  --nav-height: 64px;
 
   /* Animation */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
