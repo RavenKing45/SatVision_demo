@@ -1,0 +1,32 @@
+.reveal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  background: var(--color-bg);
+  pointer-events: none;
+}
+
+.reveal-tile {
+  background: var(--color-bg);
+  transform-origin: center bottom;
+  animation: reveal-tile-out var(--reveal-duration, 650ms) var(--ease-out-expo) forwards;
+  animation-delay: var(--reveal-delay, 0ms);
+  will-change: transform, opacity;
+}
+
+@keyframes reveal-tile-out {
+  0% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+}
